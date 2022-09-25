@@ -1,3 +1,4 @@
-@tailwind base;
-@tailwind components;
+/* Including tailwind's base & components will totally mess up Webflow's styles. */
+/*@tailwind base;*/
+/*@tailwind components;*/
 @tailwind utilities;
