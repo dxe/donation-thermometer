@@ -29,7 +29,7 @@ export const Thermometer = ({
   return isError ? null : (
     <div
       className={classNames(
-        "w-full bg-pink-400 bg-white rounded-lg flex flex-col py-6 px-4 shadow-md gap-4",
+        "w-full bg-white rounded-lg flex flex-col py-6 px-4 shadow-md gap-4",
         { "animate-pulse": isLoading }
       )}
     >
