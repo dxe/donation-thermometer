@@ -52,7 +52,7 @@ export const Thermometer = ({
           <span className="font-medium">{formatUSD(goal)}</span>
         </div>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-5 dark:bg-gray-700 overflow-hidden">
+      <div className="w-full bg-gray-200 rounded-full h-5 overflow-hidden">
         <div
           className="bg-primary h-5 transition-all"
           style={{ width: `${progress}%` }}
