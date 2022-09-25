@@ -23,6 +23,6 @@ Then you can embed it on any website like this:
 
 ```html
 <link href="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.css" rel="stylesheet" />
-<div class="dxe-donation-thermometer" data-start-date="2022-09-21" data-goal="25000" />
+<div class="dxe-donation-thermometer" data-start-date="2022-09-21" data-goal="25000"></div>
 <script src="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.js"></script>
 ```
