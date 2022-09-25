@@ -22,7 +22,7 @@ After building, copy the `dist` files into the
 Then you can embed it on any website like this:
 
 ```html
+<dxe-donation-thermometer data-start-date="2022-09-21" data-goal="25000" />
 <link href="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.css" rel="stylesheet" />
 <script src="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.js"></script>
-<dxe-donation-thermometer data-start-date="2022-09-21" data-goal="25000" />
 ```
