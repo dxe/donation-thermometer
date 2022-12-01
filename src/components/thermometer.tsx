@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { formatUSD } from "../utils/format";
 import classNames from "classnames";
 import { fetchDonationData } from "../api/donations";
+import { getNextGoal } from "../utils/calculate-goal";
 
 const queryOptions = {
   // Refetch every minute.
@@ -21,9 +22,13 @@ export const Thermometer = ({
     () => fetchDonationData({ startDate }),
     queryOptions
   );
-  const progress = useMemo(
-    () => ((data?.amt ?? 0) / goal) * 100,
+  const calculatedGoal = useMemo(
+    () => (goal !== 0 ? goal : !data?.amt ? 0 : getNextGoal(data.amt)),
     [data?.amt, goal]
+  );
+  const progress = useMemo(
+    () => (!data?.amt ? 0 : ((data?.amt ?? 0) / calculatedGoal) * 100),
+    [data?.amt, calculatedGoal]
   );
 
   return isError ? null : (
@@ -49,7 +54,7 @@ export const Thermometer = ({
         </div>
         <div className="self-end text-right">
           <span className="text-sm uppercase">Goal</span>{" "}
-          <span className="font-medium">{formatUSD(goal)}</span>
+          <span className="font-medium">{formatUSD(calculatedGoal)}</span>
         </div>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-5 overflow-hidden">
