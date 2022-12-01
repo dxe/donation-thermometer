@@ -7,5 +7,8 @@ export const fetchDonationData = async ({
 }) => {
   const resp = await fetch(`${API_URL}?start_date=${startDate}`);
   const json = (await resp.json()) as { amt: string; count: string };
-  return { amt: parseFloat(json.amt), count: parseFloat(json.count) };
+  return {
+    amt: parseFloat(json.amt === "None" ? "0" : json.amt),
+    count: parseFloat(json.count),
+  };
 };
