@@ -13,18 +13,24 @@ const queryOptions = {
 export const Thermometer = ({
   startDate,
   goal,
+  offset,
 }: {
   startDate: string;
   goal: number;
+  offset: number;
 }) => {
   const { data, isLoading, isError } = useQuery<{ amt: number; count: number }>(
     "thermometer",
     () => fetchDonationData({ startDate }),
     queryOptions
   );
+  const calculatedAmt = useMemo(
+    () => (!data?.amt ? 0 : data?.amt - offset),
+    [data?.amt, offset]
+  );
   const calculatedGoal = useMemo(
-    () => (goal !== 0 ? goal : !data?.amt ? 0 : getNextGoal(data.amt)),
-    [data?.amt, goal]
+    () => (goal !== 0 ? goal : !calculatedAmt ? 0 : getNextGoal(calculatedAmt)),
+    [calculatedAmt, goal]
   );
   const progress = useMemo(
     () => (!data?.amt ? 0 : ((data?.amt ?? 0) / calculatedGoal) * 100),
@@ -46,7 +52,7 @@ export const Thermometer = ({
           )}
         >
           <span className="text-2xl font-medium">
-            {data ? formatUSD(data.amt) : "$"}
+            {data ? formatUSD(calculatedAmt) : "$"}
           </span>
           <span className="text-sm whitespace-nowrap">
             {data?.count.toLocaleString() ?? "Loading"} donations
