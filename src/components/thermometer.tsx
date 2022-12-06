@@ -33,8 +33,8 @@ export const Thermometer = ({
     [calculatedAmt, goal]
   );
   const progress = useMemo(
-    () => (!data?.amt ? 0 : ((data?.amt ?? 0) / calculatedGoal) * 100),
-    [data?.amt, calculatedGoal]
+    () => (!calculatedAmt ? 0 : (calculatedAmt / calculatedGoal) * 100),
+    [calculatedAmt, calculatedGoal]
   );
 
   return isError ? null : (
