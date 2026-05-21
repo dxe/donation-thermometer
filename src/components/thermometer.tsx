@@ -14,16 +14,16 @@ export const Thermometer = ({
   startDate,
   goal,
   offset,
-  formID,
+  formId,
 }: {
   startDate: string;
   goal: number;
   offset: number;
-  formID: string;
+  formId?: string;
 }) => {
   const { data, isLoading, isError } = useQuery<{ amt: number; count: number }>(
     "thermometer",
-    () => fetchDonationData({ startDate, formID }),
+    () => fetchDonationData({ startDate, formId }),
     queryOptions
   );
   const calculatedAmt = useMemo(
