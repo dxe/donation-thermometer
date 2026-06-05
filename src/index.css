@@ -8,3 +8,16 @@
 /*@tailwind base;*/
 /*@tailwind components;*/
 @tailwind utilities;
+
+/*
+ * Styling API for embedders (the shadow root blocks normal host selectors):
+ *   - --dxe-thermometer-bar-color : progress-bar fill color
+ *   - ::part(card | track | bar)  : full CSS control of those elements
+ *   - font/color: inherited from the host element automatically
+ *
+ * `:where()` keeps this default at zero specificity so any ::part(bar) rule
+ * from the host page overrides it.
+ */
+:where([part="bar"]) {
+  background-color: var(--dxe-thermometer-bar-color, #225dd6);
+}

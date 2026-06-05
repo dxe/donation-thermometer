@@ -33,14 +33,71 @@ Then you can embed it on any website like this:
 
 The `<div>` is configured with data attributes:
 
-| Attribute         | Required | Description                                                                 |
-| ----------------- | -------- | --------------------------------------------------------------------------- |
-| `data-start-date` | yes      | Count donations from this date (`YYYY-MM-DD`).                              |
+| Attribute         | Required | Description                                                                      |
+| ----------------- | -------- | -------------------------------------------------------------------------------- |
+| `data-start-date` | yes      | Count donations from this date (`YYYY-MM-DD`).                                   |
 | `data-goal`       | no       | Fundraising goal. If `0` or omitted, the next goal is calculated from the total. |
-| `data-offset`     | no       | Amount subtracted from the raised total (e.g. to exclude offline gifts).    |
-| `data-form-id`    | no       | Only count donations to this form. If omitted, all forms are totaled.       |
+| `data-offset`     | no       | Amount subtracted from the raised total (e.g. to exclude offline gifts).         |
+| `data-form-id`    | no       | Only count donations to this form. If omitted, all forms are totaled.            |
 
 > No separate stylesheet is needed anymore — the styling ships inside the
 > script. If you have an older embed, remove the
 > `<link ... donation-thermometer/index.css>` tag (it loaded global styles that
 > leaked onto the host page).
+
+## Styling
+
+The widget lives in a Shadow DOM, so ordinary host CSS selectors can't reach
+inside it. It exposes a small styling API instead.
+
+```css
+.dxe-donation-thermometer {
+	/* Inherited properties cross the shadow boundary automatically: */
+	font-family: "Inter", sans-serif;
+	color: #222;
+
+	/* Custom property for the progress-bar fill color: */
+	--dxe-thermometer-bar-color: #e4002b;
+}
+
+/* `::part()` gives full CSS control of the exposed elements: */
+.dxe-donation-thermometer::part(card) {
+	box-shadow: none;
+	border-radius: 0;
+}
+.dxe-donation-thermometer::part(track) {
+	background: #f0f0f0;
+}
+.dxe-donation-thermometer::part(bar) {
+	background: linear-gradient(90deg, #e4002b, #ff7a00);
+}
+```
+
+| Hook                          | Affects                                              |
+| ----------------------------- | ---------------------------------------------------- |
+| `font-family`, `color`, …     | Inherited by the whole widget from the host element. |
+| `--dxe-thermometer-bar-color` | Progress-bar fill color.                             |
+| `::part(card)`                | The outer card container.                            |
+| `::part(track)`               | The progress bar's background track.                 |
+| `::part(bar)`                 | The progress bar's fill (overrides the bar color).   |
+
+### Example
+
+A red progress bar in a flat, square-cornered card:
+
+```html
+<style>
+	/* Red bar fill */
+	.dxe-donation-thermometer {
+		--dxe-thermometer-bar-color: #e4002b;
+	}
+	/* Flat card: no shadow, square corners */
+	.dxe-donation-thermometer::part(card) {
+		box-shadow: none;
+		border-radius: 0;
+	}
+</style>
+
+<div class="dxe-donation-thermometer" data-start-date="2022-09-21" data-goal="25000"></div>
+<script src="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.js"></script>
+```
