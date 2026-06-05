@@ -21,6 +21,9 @@ importers:
         specifier: ^3.39.2
         version: 3.39.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
+      '@parcel/transformer-inline-string':
+        specifier: ^2.16.4
+        version: 2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))
       '@types/node':
         specifier: ^16.11.60
         version: 16.18.126
@@ -1328,6 +1331,10 @@ packages:
     engines: {node: '>= 16.0.0', parcel: ^2.16.4}
     peerDependencies:
       '@parcel/core': ^2.16.4
+
+  '@parcel/transformer-inline-string@2.16.4':
+    resolution: {integrity: sha512-Kr5YZbN3xeb3asvle9+Nso/Tqxy0I/mdV2oQC30NuVVP+PXbOD4fC24QtORyt0V1UX93KqgmXKl7G75767FcVg==}
+    engines: {node: '>= 16.0.0', parcel: ^2.16.4}
 
   '@parcel/transformer-js@2.16.4':
     resolution: {integrity: sha512-FD2fdO6URwAGBPidb3x1dDgLBt972mko0LelcSU05aC/pcKaV9mbCtINbPul1MlStzkxDelhuImcCYIyerheVQ==}
@@ -7936,6 +7943,13 @@ snapshots:
       '@parcel/workers': 2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))
       nullthrows: 1.1.1
     transitivePeerDependencies:
+      - napi-wasm
+
+  '@parcel/transformer-inline-string@2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
+    dependencies:
+      '@parcel/plugin': 2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+    transitivePeerDependencies:
+      - '@parcel/core'
       - napi-wasm
 
   '@parcel/transformer-js@2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))':

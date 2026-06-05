@@ -1,28 +1,46 @@
 # Donation thermometer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An embeddable donation progress widget built with React + Tailwind and bundled
+by [Parcel](https://parceljs.org/).
+
+The widget mounts into a [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
+and its compiled CSS is injected into that shadow root (not the host page), so
+its styles are fully scoped — they can't leak onto the host site, and the host
+site's styles can't leak into the widget.
 
 ### `pnpm dev`
 
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+Runs the app in development mode.
+Open [http://localhost:1234](http://localhost:1234) to view it in the browser.
+The page reloads as you make edits.
 
 ### `pnpm build:parcel`
 
-Builds the app using parcel.
+Builds the app using Parcel. The output is a single self-contained
+`dist/index.js` (the CSS is inlined into the bundle).
 
 ## Usage
 
-After building, copy the `dist` files into the
+After building, copy `dist/index.js` into the
 [static-s3](https://github.com/dxe/static-s3/tree/master/donation-thermometer) repo for hosting.
 
 Then you can embed it on any website like this:
 
 ```html
-<link href="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.css" rel="stylesheet" />
 <div class="dxe-donation-thermometer" data-start-date="2022-09-21" data-goal="25000"></div>
 <script src="https://dxe-static.s3.amazonaws.com/donation-thermometer/index.js"></script>
 ```
+
+The `<div>` is configured with data attributes:
+
+| Attribute         | Required | Description                                                                 |
+| ----------------- | -------- | --------------------------------------------------------------------------- |
+| `data-start-date` | yes      | Count donations from this date (`YYYY-MM-DD`).                              |
+| `data-goal`       | no       | Fundraising goal. If `0` or omitted, the next goal is calculated from the total. |
+| `data-offset`     | no       | Amount subtracted from the raised total (e.g. to exclude offline gifts).    |
+| `data-form-id`    | no       | Only count donations to this form. If omitted, all forms are totaled.       |
+
+> No separate stylesheet is needed anymore — the styling ships inside the
+> script. If you have an older embed, remove the
+> `<link ... donation-thermometer/index.css>` tag (it loaded global styles that
+> leaked onto the host page).

@@ -1,4 +1,10 @@
-/* Including tailwind's base & components will totally mess up Webflow's styles. */
+/*
+ * This stylesheet is injected into the widget's shadow root (see index.tsx),
+ * so it is fully scoped to the widget and cannot affect the host page. Base &
+ * components stay disabled to keep the widget inheriting the host site's font
+ * and to preserve the current look; enabling them here is now safe if a fully
+ * reset baseline is ever wanted.
+ */
 /*@tailwind base;*/
 /*@tailwind components;*/
 @tailwind utilities;
