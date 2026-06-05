@@ -45,6 +45,7 @@ export const Thermometer = ({
         "w-full bg-white rounded-lg flex flex-col py-6 px-4 shadow-md gap-4",
         { "animate-pulse": isLoading }
       )}
+      part="card"
     >
       <div className="flex justify-between gap-4">
         <div
@@ -65,9 +66,13 @@ export const Thermometer = ({
           <span className="font-medium">{formatUSD(calculatedGoal)}</span>
         </div>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-5 overflow-hidden">
+      <div
+        className="w-full bg-gray-200 rounded-full h-5 overflow-hidden"
+        part="track"
+      >
         <div
-          className="bg-primary h-5 transition-all"
+          className="h-5 transition-all"
+          part="bar"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
